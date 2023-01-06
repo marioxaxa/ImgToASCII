@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ImageIcon from '@mui/icons-material/Image';
+import { handleFileDrop } from './helpers/handleFileDrop';
 
 const StyledApp = styled.div`
     background:#ab6363;
@@ -25,16 +26,84 @@ const CentralBox = styled.div`
     align-items:center;
 `;
 
-const StyledText = styled.p`
-    color:'#f3e8e8';
+const StyledText = styled.h1`
+    color:#f3e8e8;
     font-size:2em;
+    text-align: center;
 `;
 
 function App() {
+
+    const boxRef = React.useRef<HTMLDivElement>(null)
+
+    const [isDragging, setIsDragging] = React.useState(false)
+
+    const [imageURL, setImageURL] = React.useState(null)
+
+    React.useEffect(() => {
+        if (!boxRef.current) throw Error('boxRef is null.')
+
+        boxRef.current.addEventListener('dragover', handleDragOver)
+        boxRef.current.addEventListener('dragenter', handleDragEnter)
+        boxRef.current.addEventListener('dragleave', handleDragLeave)
+        boxRef.current.addEventListener('drop', handleDrop)
+
+    }, [boxRef])
+
+    function handleDragEnter(e: Event): void {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsDragging(true)
+    }
+
+    function handleDragLeave(e: Event): void {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsDragging(false)
+    }
+
+    function handleDragOver(e: Event): void {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsDragging(true)
+    }
+
+    function handleDrop(e: DragEvent): void {
+
+        let image = handleFileDrop(e)
+        console.log(image)
+        setImageURL(image)
+
+        setIsDragging(false)
+    }
+
     return (
         <StyledApp>
-            <CentralBox>
-                <ImageIcon sx={{ fontSize: 300, color: '#f3e8e8' }} />
+            <CentralBox ref={boxRef}>
+                {isDragging ?
+                    //TODO: Colocar um icon bonito para quando for soltar
+                    <>
+                        <ImageIcon sx={{
+                            width: '70%',
+                            height: '70%',
+                            color: '#1dbc17'
+                        }} />
+                        <StyledText>
+                            Drop Image Here
+                        </StyledText>
+                    </>
+                    :
+                    <>
+                        <ImageIcon sx={{
+                            width: '70%',
+                            height: '70%',
+                            color: '#f3e8e8'
+                        }} />
+                        <StyledText>
+                            Drop Image Here
+                        </StyledText>
+                    </>
+                }
 
             </CentralBox>
         </StyledApp>
