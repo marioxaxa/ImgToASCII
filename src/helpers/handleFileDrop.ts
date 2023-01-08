@@ -1,4 +1,4 @@
-export async function handleFileDrop(e: DragEvent) {
+export function handleFileDrop(e: DragEvent, setFunc: Function) {
 
     //! Tenho que descobrir qual o tipo do e
 
@@ -18,14 +18,9 @@ export async function handleFileDrop(e: DragEvent) {
     const reader = new FileReader()
 
     reader.onload = () => {
-        var fileURL = reader.result
-        console.log(fileURL)
-        return fileURL
+        
+        setFunc(reader.result)
     }
 
-    var imageURL = await reader.readAsDataURL(e.dataTransfer.files[0])
-    
-    return imageURL
-
-
+    reader.readAsDataURL(e.dataTransfer.files[0])
 }
