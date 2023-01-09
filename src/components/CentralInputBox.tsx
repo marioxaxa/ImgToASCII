@@ -18,8 +18,8 @@ const CentralBoxStyled = styled.div`
     align-items:center;
 `;
 
-const StyledText = styled.h1`
-    color:#f3e8e8;
+const StyledText = styled.h1<{dragging?: boolean}>`
+    color:${props => props.dragging ? '#d0a5a5' : '#f3e8e8'};
     font-size:2em;
     text-align: center;
 `;
@@ -76,9 +76,11 @@ export default function CentralInputBox() {
                         <ImageIcon sx={{
                             width: '70%',
                             height: '70%',
-                            color: '#1dbc17'
+                            color: '#d0a5a5'
                         }} />
-                        <StyledText>
+                        <StyledText
+                            dragging
+                        >
                             Drop Image Here
                         </StyledText>
                     </>

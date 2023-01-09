@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { AppContext } from '../App';
 import { AppContextType } from '../@types/AppContext';
+import Canvas from './Canvas';
 
 const CentralBoxStyled = styled.div`
     height:80%;
@@ -38,21 +39,13 @@ const ASCIIHolderStyled = styled.div`
 `
 
 const ImgStyled = styled.img`
-    width:90%;
-    
+    height:clamp(100px, 90%, 375px);
+    width:clamp(110px, 90%, 470px)
 `
 
 export default function CentralDisplayBox() {
 
     const { imageURL } = React.useContext(AppContext) as AppContextType
-
-    React.useEffect(() => {
-        if(imageURL){
-            var canvas = document.createElement('canvas')
-            var img = document.getElementById('base-image')
-
-        }
-    },[imageURL])
 
     return (
         <CentralBoxStyled>
@@ -60,7 +53,7 @@ export default function CentralDisplayBox() {
                 <ImgStyled id='base-image' src={imageURL} />
             </ImgHolderStyled>
             <ASCIIHolderStyled>
-                <ImgStyled src={imageURL} />
+                <Canvas />
             </ASCIIHolderStyled>
         </CentralBoxStyled>
     )
