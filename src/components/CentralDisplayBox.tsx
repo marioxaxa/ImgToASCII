@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AppContext } from '../App';
 import { AppContextType } from '../@types/AppContext';
 import Canvas from './Canvas';
+import ConfigBox from './ConfigBox';
 
 const CentralBoxStyled = styled.div`
     height:80%;
@@ -40,7 +41,8 @@ const ASCIIHolderStyled = styled.div`
 
 const ImgStyled = styled.img`
     height:clamp(100px, 90%, 375px);
-    width:clamp(110px, 90%, 470px)
+    width:clamp(110px, 90%, 470px);
+    object-fit:contain;
 `
 
 export default function CentralDisplayBox() {
@@ -55,6 +57,8 @@ export default function CentralDisplayBox() {
             <ASCIIHolderStyled>
                 <Canvas />
             </ASCIIHolderStyled>
+            <ConfigBox />
+
         </CentralBoxStyled>
     )
 }

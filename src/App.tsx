@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AppContextType } from './@types/AppContext';
 import CentralInputBox from './components/CentralInputBox';
 import CentralDisplayBox from './components/CentralDisplayBox';
+import { AsciiClass } from './@types/AsciiClass';
 
 const StyledApp = styled.div`
     background:#ab6363;
@@ -20,9 +21,13 @@ function App() {
 
     const [imageURL, setImageURL] = React.useState<string | null>(null)
 
+    const [asciiObj, setAsciiObj] = React.useState<AsciiClass | null>(null)
+
+    //!IMPORTANTE
+    //TODO: REDUZIR RESOLUÇÃO DE IMAGENS MT GRANDES
    
     return (
-        <AppContext.Provider value={{imageURL, setImageURL}}>
+        <AppContext.Provider value={{imageURL, setImageURL,asciiObj, setAsciiObj}}>
             <StyledApp>
                 {imageURL ? <CentralDisplayBox /> : <CentralInputBox />}
             </StyledApp>

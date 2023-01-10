@@ -7,12 +7,13 @@ import { AsciiClass } from '../@types/AsciiClass';
 
 const CanvasStyled = styled.canvas`
     height:clamp(100px, 90%, 375px);
-    border: 5px solid white;
+    width:clamp(110px, 90%, 470px);
+    object-fit:contain;
 `
 
 export default function Canvas() {
 
-    const { imageURL } = React.useContext(AppContext) as AppContextType
+    const { imageURL, setAsciiObj } = React.useContext(AppContext) as AppContextType
 
     React.useEffect(() => {
         if (imageURL) {
@@ -30,15 +31,14 @@ export default function Canvas() {
                 canvas.width = baseImage.width
                 canvas.height = baseImage.height
                 const asciiImage = new AsciiClass(ctxCanvas, baseImage.width, baseImage.height, baseImage)
-                asciiImage.draw(4)
+                setAsciiObj(asciiImage)
+                asciiImage.draw(1)
             }
             
         }
     }, [imageURL])
 
   return (
-    <CanvasStyled id='canvas'>
-
-    </CanvasStyled>
+    <CanvasStyled id='canvas' />
   )
 }
