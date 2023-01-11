@@ -66,6 +66,12 @@ const SliderTextStyled = styled.div`
     inset -5px -5px 5px rgba(255,255,255,0.25);
 `
 
+const ColorHolderStyled = styled.div`
+`
+
+const ColorStyled = styled.input`
+`
+
 
 
 export default function ConfigBox() {
@@ -74,14 +80,28 @@ export default function ConfigBox() {
 
     const [cellSizeValue, setCellSizeValue] = React.useState<number>(1)
 
+    const [backgroundColor, setBackgroundColor] =React.useState<string>('#000000')
+
     React.useEffect(() => {
         if (!asciiObj) return
-        asciiObj.draw(cellSizeValue)
-    }, [cellSizeValue])
+        asciiObj.draw(cellSizeValue, backgroundColor)
+    }, [cellSizeValue, backgroundColor])
 
-    function handleChange(v: string): void {
+    function handleSliderChange(v: string): void {
         setCellSizeValue(parseInt(v))
     }
+
+    function handleColorChange(v: string): void {
+        setBackgroundColor(v)
+    }
+
+    /** 
+     * TODO:
+     * Deixar color input bonito
+     * Opção para não ter fundo
+     * Botão de download
+     * Botão de reset
+     */
 
     return (
         <ConfigHolderStyled>
@@ -90,13 +110,22 @@ export default function ConfigBox() {
                     type='range'
                     min='1'
                     max='10'
-                    onChange={(v) => { handleChange(v.target.value) }}
+                    onChange={(v) => { handleSliderChange(v.target.value) }}
                     value={cellSizeValue}
                 />
                 <SliderTextStyled>
                     {cellSizeValue}
                 </SliderTextStyled>
             </SliderHolderStyled>
+
+            <ColorHolderStyled>
+                <ColorStyled 
+                    type='color'
+                    onChange={(v) => { handleColorChange(v.target.value) }}
+                    value={backgroundColor}
+                />
+            </ColorHolderStyled>
+            
         </ConfigHolderStyled>
     )
 }

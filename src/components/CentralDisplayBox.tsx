@@ -20,6 +20,16 @@ const CentralBoxStyled = styled.div`
 const ImgHolderStyled = styled.div`
     width:100%;
     height:100%;
+    color: #c57272;
+    background: #ab6363;
+    margin-left: 15px;
+    margin-top: 15px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 2px rgba(0,0,0,0.1),
+    -5px -5px 10px #c57272,
+    inset 5px 5px 10px rgba(0,0,0,0.1),
+    inset -5px -5px 5px rgba(0,0,0,0.1);
+
     grid-row: 1 / 4;
     grid-column: 1 / 3;
 
@@ -31,6 +41,15 @@ const ImgHolderStyled = styled.div`
 const ASCIIHolderStyled = styled.div`
     width:100%;
     height:100%;
+    color: #c57272;
+    background: #ab6363;
+    margin-left: -15px;
+    margin-top: 15px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 2px rgba(0,0,0,0.1),
+    -5px -5px 10px #c57272,
+    inset 5px 5px 10px rgba(0,0,0,0.1),
+    inset -5px -5px 5px rgba(0,0,0,0.1);
     grid-row: 1 / 4;
     grid-column: 4 / 6;
 

@@ -18,11 +18,9 @@ export class AsciiClass {
 
         const density = "`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@"
         const len = density.length
-        const charIndex = Math.floor(((len-1) / 255) * color)
-        
-        const symbol = density[charIndex]
+        const charIndex = Math.floor(((len - 1) / 255) * color)
 
-        if (symbol == undefined) console.log(charIndex)
+        const symbol = density[charIndex]
 
         return symbol
     }
@@ -50,18 +48,22 @@ export class AsciiClass {
         console.log(this.cellArray)
     }
 
-    drawAscii() {
+    drawAscii(backgroundColor?: string) {
         this.ctx.clearRect(0, 0, this.width, this.height)
-        this.ctx.fillStyle = '#000'
+        if (backgroundColor) {
+            this.ctx.fillStyle = backgroundColor
+        } else {
+            this.ctx.fillStyle = '#000'
+        }
         this.ctx.fillRect(0, 0, this.width, this.height)
         for (let i = 0; i < this.cellArray.length; i++) {
             this.cellArray[i].draw(this.ctx)
         }
     }
 
-    draw(cellSize: number) {
+    draw(cellSize: number, backgroundColor?: string) {
         this.scanImage(cellSize)
-        this.drawAscii()
+        this.drawAscii(backgroundColor)
     }
 }
 
