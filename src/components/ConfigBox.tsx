@@ -2,25 +2,35 @@ import React from 'react'
 import styled from 'styled-components'
 import { AppContext } from '../App'
 import { AppContextType } from '../@types/AppContext'
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const ConfigHolderStyled = styled.div`
     width:100%;
     height:100%;
-    grid-row: 4 / 6;
+    grid-row: 4 / 5;
     grid-column: 1 / 6;
     display:flex;
-    justify-content:center;
+    justify-content:space-around;
     align-items:center;
+
 `
 
 const SliderHolderStyled = styled.div`
-    width:30%;
+    width:60%;
+    height:10%;
+    grid-row: 4 / 5;
+    grid-column: 1 / 3;
+    justify-self:center;
+    align-self:center;
     position:relative;
+
     display:flex;
     justify-content:center;
     align-items:center;
     padding:20px;
-    background:linear-gradient(to bottom, rgba(0,0,0,0.05), #ab6363;);
+
+    background:linear-gradient(to bottom, rgba(0,0,0,0.05), #ab6363);
     border-radius: 40px;
     box-shadow: 15px 15px 20px rgba(0,0,0,0.1), 
     -15px -15px 20px #c57272;
@@ -67,9 +77,53 @@ const SliderTextStyled = styled.div`
 `
 
 const ColorHolderStyled = styled.div`
+    width:100%;
+    height:100%;
+    grid-row: 4 / 5;
+    grid-column: 4 / 6;
+    justify-self:center;
+    align-self:center;
+    position:relative;
+
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+`
+
+const ColorCheckBoxStyled = styled.input`
+    appearance:none;
+    width:7vmin;
+    height:7vmin;
+    background-color: #c57272;
+    border-radius:10px;
+    border:4px solid #c57272;
+    box-shadow:  5px 5px 15px #915454,
+             -5px -5px 15px #c57272;
+    
+
+    :checked{
+    box-shadow:5px 5px 15px #915454,
+    -5px -5px 15px #c57272,
+    inset 5px 5px 15px #915454,
+    inset -5px -5px 15px #c57272;
+    }
 `
 
 const ColorStyled = styled.input`
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    width:7vmin;
+    height:7vmin;
+    background-color:transparent;
+    border:4px solid #c57272;
+    border-radius:10px;
+
+    ::-webkit-color-swatch {
+        border-radius:10px;
+        border:none;
+    }
+
 `
 
 
@@ -80,12 +134,14 @@ export default function ConfigBox() {
 
     const [cellSizeValue, setCellSizeValue] = React.useState<number>(1)
 
-    const [backgroundColor, setBackgroundColor] =React.useState<string>('#000000')
+    const [backgroundColor, setBackgroundColor] = React.useState<string>('#000000')
+
+    const [checkBackground, setCheckBackground] = React.useState<boolean>(false)
 
     React.useEffect(() => {
         if (!asciiObj) return
-        asciiObj.draw(cellSizeValue, backgroundColor)
-    }, [cellSizeValue, backgroundColor])
+        asciiObj.draw(cellSizeValue, checkBackground, backgroundColor)
+    }, [cellSizeValue, backgroundColor, checkBackground])
 
     function handleSliderChange(v: string): void {
         setCellSizeValue(parseInt(v))
@@ -93,6 +149,11 @@ export default function ConfigBox() {
 
     function handleColorChange(v: string): void {
         setBackgroundColor(v)
+    }
+
+    function handleCheckedChange(): void {
+        console.log(checkBackground)
+        setCheckBackground(!checkBackground)
     }
 
     /** 
@@ -104,7 +165,7 @@ export default function ConfigBox() {
      */
 
     return (
-        <ConfigHolderStyled>
+        <>
             <SliderHolderStyled>
                 <SliderStyled
                     type='range'
@@ -119,13 +180,30 @@ export default function ConfigBox() {
             </SliderHolderStyled>
 
             <ColorHolderStyled>
-                <ColorStyled 
+                <ColorCheckBoxStyled
+                    type='checkbox'
+                    onChange={() => { handleCheckedChange() }}
+                />
+                {checkBackground ?
+                    <VisibilityIcon
+                        sx={{
+                            color: '#f3e8e8',
+                        }}
+                    />
+                    :
+                    <VisibilityOffIcon 
+                    sx={{
+                        color: '#d0a5a5',
+                    }}
+                    />
+                }
+                <ColorStyled
                     type='color'
                     onChange={(v) => { handleColorChange(v.target.value) }}
                     value={backgroundColor}
                 />
             </ColorHolderStyled>
-            
-        </ConfigHolderStyled>
+
+        </>
     )
 }

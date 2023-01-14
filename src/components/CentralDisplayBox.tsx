@@ -4,6 +4,8 @@ import { AppContext } from '../App';
 import { AppContextType } from '../@types/AppContext';
 import Canvas from './Canvas';
 import ConfigBox from './ConfigBox';
+import DownloadButton from './DownloadButton';
+import RestartButton from './RestartButton';
 
 const CentralBoxStyled = styled.div`
     height:80%;
@@ -14,7 +16,7 @@ const CentralBoxStyled = styled.div`
              -20px -20px 60px #c57272;
     display:grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
 `
 
 const ImgHolderStyled = styled.div`
@@ -73,11 +75,12 @@ export default function CentralDisplayBox() {
             <ImgHolderStyled>
                 <ImgStyled id='base-image' src={imageURL} />
             </ImgHolderStyled>
+            <RestartButton />
             <ASCIIHolderStyled>
                 <Canvas />
             </ASCIIHolderStyled>
             <ConfigBox />
-
+            <DownloadButton />
         </CentralBoxStyled>
     )
 }

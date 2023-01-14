@@ -32,7 +32,7 @@ export default function Canvas() {
                 canvas.height = baseImage.height
                 const asciiImage = new AsciiClass(ctxCanvas, baseImage.width, baseImage.height, baseImage)
                 setAsciiObj(asciiImage)
-                asciiImage.draw(1)
+                asciiImage.draw(1, false, 'fff')
             }
             
         }

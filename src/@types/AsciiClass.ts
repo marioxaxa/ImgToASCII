@@ -45,25 +45,24 @@ export class AsciiClass {
                 }
             }
         }
-        console.log(this.cellArray)
     }
 
-    drawAscii(backgroundColor?: string) {
+    drawAscii(checkBackground: boolean, backgroundColor: string) {
         this.ctx.clearRect(0, 0, this.width, this.height)
-        if (backgroundColor) {
+        if (checkBackground) {
             this.ctx.fillStyle = backgroundColor
+            this.ctx.fillRect(0, 0, this.width, this.height)
         } else {
-            this.ctx.fillStyle = '#000'
+            this.ctx.clearRect(0, 0, this.width, this.height)
         }
-        this.ctx.fillRect(0, 0, this.width, this.height)
         for (let i = 0; i < this.cellArray.length; i++) {
             this.cellArray[i].draw(this.ctx)
         }
     }
 
-    draw(cellSize: number, backgroundColor?: string) {
+    draw(cellSize: number, checkBackground: boolean, backgroundColor: string) {
         this.scanImage(cellSize)
-        this.drawAscii(backgroundColor)
+        this.drawAscii(checkBackground, backgroundColor)
     }
 }
 
