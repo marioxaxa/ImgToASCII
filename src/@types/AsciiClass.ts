@@ -81,5 +81,6 @@ export class Cell {
     draw(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = this.color
         ctx.fillText(this.symbol, this.x, this.y)
+        
     }
 }

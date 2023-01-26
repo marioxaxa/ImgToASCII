@@ -2,19 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { AppContext } from '../App'
 import { AppContextType } from '../@types/AppContext'
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-const ConfigHolderStyled = styled.div`
-    width:100%;
-    height:100%;
-    grid-row: 4 / 5;
-    grid-column: 1 / 6;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-
-`
+import BackgroundCheckBox from './BackgroundCheckBox';
 
 const SliderHolderStyled = styled.div`
     width:60%;
@@ -90,25 +79,6 @@ const ColorHolderStyled = styled.div`
     align-items:center;
 `
 
-const ColorCheckBoxStyled = styled.input`
-    appearance:none;
-    width:7vmin;
-    height:7vmin;
-    background-color: #c57272;
-    border-radius:10px;
-    border:4px solid #c57272;
-    box-shadow:  5px 5px 15px #915454,
-             -5px -5px 15px #c57272;
-    
-
-    :checked{
-    box-shadow:5px 5px 15px #915454,
-    -5px -5px 15px #c57272,
-    inset 5px 5px 15px #915454,
-    inset -5px -5px 15px #c57272;
-    }
-`
-
 const ColorStyled = styled.input`
     -webkit-appearance:none;
     -moz-appearance:none;
@@ -151,10 +121,7 @@ export default function ConfigBox() {
         setBackgroundColor(v)
     }
 
-    function handleCheckedChange(): void {
-        console.log(checkBackground)
-        setCheckBackground(!checkBackground)
-    }
+    
 
     /** 
      * TODO:
@@ -180,23 +147,7 @@ export default function ConfigBox() {
             </SliderHolderStyled>
 
             <ColorHolderStyled>
-                <ColorCheckBoxStyled
-                    type='checkbox'
-                    onChange={() => { handleCheckedChange() }}
-                />
-                {checkBackground ?
-                    <VisibilityIcon
-                        sx={{
-                            color: '#f3e8e8',
-                        }}
-                    />
-                    :
-                    <VisibilityOffIcon 
-                    sx={{
-                        color: '#d0a5a5',
-                    }}
-                    />
-                }
+                <BackgroundCheckBox checkBackground={checkBackground} setCheckBackground={setCheckBackground} />
                 <ColorStyled
                     type='color'
                     onChange={(v) => { handleColorChange(v.target.value) }}

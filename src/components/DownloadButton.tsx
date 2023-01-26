@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -30,8 +29,17 @@ export const StyledButton = styled.button`
 `
 
 export default function DownloadButton() {
+
+    function download() {
+        var link = document.createElement('a');
+        link.download = 'asciiImage.png';
+        if (!document.querySelector<HTMLCanvasElement>('#canvas')) throw Error('Canvas não existe')
+        link.href =  document.querySelector<HTMLCanvasElement>('#canvas')!.toDataURL()
+        link.click();
+    }
+
   return (
-    <StyledButton>
+    <StyledButton onClick={download}>
         <DownloadIcon 
             sx={{
                 width: '100%',
